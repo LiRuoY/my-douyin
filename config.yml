@@ -1,0 +1,16 @@
+db:
+  account: root
+  password: 123456
+  address: 127.0.0.1
+  port: 3306
+  connectProtocol: tcp
+  database: douyin
+  charSet: charset=utf8
+  timeSet: "parseTime=True&loc=Asia%2fShanghai"
+static:
+  httpFolder: static/
+  localStorePath: A:/GoJet/my-douyin/static/
+server:
+  protocol: http
+  ip: localhost
+  port: 8080

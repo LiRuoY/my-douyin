@@ -1,0 +1,81 @@
+CREATE DATABASE
+IF NOT EXISTS `douyin` DEFAULT CHARSET utf8 DEFAULT COLLATE utf8_bin;
+
+USE `douyin`;
+
+DROP TABLE
+IF EXISTS `users`;
+
+CREATE TABLE `users` (
+	`id` BIGINT (20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`name` VARCHAR (32) NOT NULL DEFAULT '',
+	`follow_count` BIGINT DEFAULT 0,
+	`follower_count` BIGINT DEFAULT 0,
+	`is_follow` TINYINT (1) DEFAULT 0
+) ENGINE INNODB;
+
+DROP TABLE
+IF EXISTS `user_logins`;
+
+CREATE TABLE `user_logins` (
+	`id` BIGINT (20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`user_id` BIGINT (20) UNIQUE NOT NULL DEFAULT 0,
+	`name` VARCHAR (32) NOT NULL DEFAULT '',
+	`password` VARCHAR (32) NOT NULL DEFAULT '',
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE INNODB;
+
+DROP TABLE
+IF EXISTS `videos`;
+
+CREATE TABLE `videos` (
+	`id` BIGINT (20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`user_id` BIGINT (20) NOT NULL DEFAULT 0,
+	`title` VARCHAR (32) NOT NULL DEFAULT '',
+	`play_url` VARCHAR (255) NOT NULL DEFAULT '',
+	`cover_url` VARCHAR (255) NOT NULL DEFAULT '',
+	`favorite_count` BIGINT DEFAULT 0,
+	`is_favorite` TINYINT (1) DEFAULT 0,
+	`comment_count` BIGINT DEFAULT 0,
+	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE INNODB;
+
+DROP TABLE
+IF EXISTS `comments`;
+
+CREATE TABLE `comments` (
+	`id` BIGINT (20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`user_id` BIGINT (20) NOT NULL DEFAULT 0,
+	`video_id` BIGINT (20) NOT NULL DEFAULT 0,
+	`content` TEXT NOT NULL,
+	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+	FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`)
+) ENGINE INNODB;
+
+
+
+
+#many2many的表
+
+DROP TABLE
+IF EXISTS `favor_videos`;
+CREATE TABLE `favor_videos` (
+	`video_id` BIGINT (20) NOT NULL DEFAULT 0,
+	`user_id`  BIGINT (20) NOT NULL DEFAULT 0,
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+	FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`)
+)ENGINE INNODB;
+
+DROP TABLE
+IF EXISTS `follows`;
+CREATE TABLE `follows` (
+	`user_id` BIGINT (20) NOT NULL DEFAULT 0,
+	`follow_id`  BIGINT (20) NOT NULL DEFAULT 0,
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+	FOREIGN KEY (`follow_id`) REFERENCES `users` (`id`)
+)ENGINE INNODB;
+
