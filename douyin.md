@@ -9,12 +9,12 @@
 - mysql
 
 ## 包
+![image-20220613102408437](https://user-images.githubusercontent.com/98474722/173273838-3c8b7f4e-ac08-4524-9b1c-e1c1ddbda2e3.png)
 
-![image-20220613102408437](A:\my-douyin\mdimages\image-20220613102408437.png)
 
 ## 架构
+![image-20220613100845934](https://user-images.githubusercontent.com/98474722/173273754-e1af5a69-e420-447b-b782-a0dc47ddd137.png)
 
-![image-20220613100845934](A:\my-douyin\mdimages\image-20220613100845934.png)
 
 ## 技术点
 
